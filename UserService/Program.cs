@@ -98,19 +98,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<UserAppDbContext>();
-    db.Database.Migrate(); // 
-    if (!db.role.Any())
-    {
-        db.role.AddRange(
-            new Role { RoleName = "Admin", Description = "Qu?n tr? h? th?ng" },
-            new Role { RoleName = "Lecturer", Description = "Gi?ng viên" },
-            new Role { RoleName = "Student", Description = "Sinh viên" }
-        );
-        db.SaveChanges();
-    }
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var db = scope.ServiceProvider.GetRequiredService<UserAppDbContext>();
+//    db.Database.Migrate(); // 
+//    if (!db.role.Any())
+//    {
+//        db.role.AddRange(
+//            new Role { RoleName = "Admin", Description = "Qu?n tr? h? th?ng" },
+//            new Role { RoleName = "Lecturer", Description = "Gi?ng viên" },
+//            new Role { RoleName = "Student", Description = "Sinh viên" }
+//        );
+//        db.SaveChanges();
+//    }
+//}
 
 app.Run();

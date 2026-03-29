@@ -101,26 +101,26 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate(); // tự động tạo DB và apply migration khi app chạy
+//using (var scope = app.Services.CreateScope())
+//{
+//    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//    db.Database.Migrate(); // tự động tạo DB và apply migration khi app chạy
 
 
-    if (!db.Languages.Any())
-    {
-        db.Languages.AddRange(
-            new Language { LanguageId = 71, LanguageName = "Python (3.8.1)" },
-            new Language { LanguageId = 54, LanguageName = "C++ (GCC 9.2.0)" },
-            new Language { LanguageId = 73, LanguageName = "Rust (1.40.0)" },
-            new Language { LanguageId = 62, LanguageName = "Java (OpenJDK 13.0.1)" },
-            new Language { LanguageId = 51, LanguageName = "C# (Mono 6.6.0.161)" },
-            new Language { LanguageId = 50, LanguageName = "C (GCC 9.2.0)" }
-        );
-        db.SaveChanges();
-    }
+//    if (!db.Languages.Any())
+//    {
+//        db.Languages.AddRange(
+//            new Language { LanguageId = 71, LanguageName = "Python (3.8.1)" },
+//            new Language { LanguageId = 54, LanguageName = "C++ (GCC 9.2.0)" },
+//            new Language { LanguageId = 73, LanguageName = "Rust (1.40.0)" },
+//            new Language { LanguageId = 62, LanguageName = "Java (OpenJDK 13.0.1)" },
+//            new Language { LanguageId = 51, LanguageName = "C# (Mono 6.6.0.161)" },
+//            new Language { LanguageId = 50, LanguageName = "C (GCC 9.2.0)" }
+//        );
+//        db.SaveChanges();
+//    }
 
-}
+//}
 
 
 app.Run();
