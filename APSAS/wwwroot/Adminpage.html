@@ -2,145 +2,77 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Trang Quản Trị (Admin)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Thêm User</title>
+
+    <!-- LINK CSS -->
     <link rel="stylesheet" href="Css/Admin.css">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
-
+    <!-- FONT (xịn hơn) -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div class="top-right-nav">
-        <button onclick="window.location.href='StudentDashboard.html'">Trang Sinh Viên</button>
-        <button onclick="window.location.href='DashboardLecturer.html'">Trang Giảng Viên</button>
-    </div>
-    <h1>Trang Quản Trị</h1>
-
-    <!-- ========== PHẦN API CONFIG ========== -->
-    <div class="container-api" id="apiContainer">
-        <h2>Quản Lý API</h2>
-        <div id="addApiForm">
-            <label for="apiName">Tên API:</label>
-            <input type="text" id="apiName" placeholder="VD: Judge0">
-            <label for="baseUrl">Base URL:</label>
-            <input type="text" id="baseUrl" placeholder="VD: https://api.judge0.com">
-            <button onclick="addAPIConfig()">Thêm API</button>
-            <button onclick="toggleApiForm('update')" style="background-color:#27ae60;">Cập nhật API</button>
-            <button onclick="toggleApiForm('list')" style="background-color:#8e44ad;">Xem danh sách API</button>
-            <div id="apiMessage" class="message"></div>
-        </div>
-
-        <div id="updateApiForm" style="display:none;">
-            <label for="apiId">API ID:</label>
-            <input type="number" id="apiId">
-            <label for="apiNameUpdate">Tên API mới:</label>
-            <input type="text" id="apiNameUpdate">
-            <label for="baseUrlUpdate">Base URL mới:</label>
-            <input type="text" id="baseUrlUpdate">
-            <button onclick="updateAPIConfig()" style="background-color:#27ae60;">Cập nhật API</button>
-            <button onclick="toggleApiForm('add')" style="background-color:#3498db;">Quay lại Thêm API</button>
-            <div id="apiUpdateMessage" class="message"></div>
-        </div>
-
-        <div id="apiListContainer" style="display:none;">
-            <h3>Danh sách API hiện có</h3>
-            <div id="apiListContent"></div>
-            <button onclick="toggleApiForm('add')"
-                    style="margin-top:10px; background-color:#3498db; color:white; padding:10px; border:none; border-radius:5px; cursor:pointer;"
-                    onmouseover="this.style.backgroundColor='#2980b9'"
-                    onmouseout="this.style.backgroundColor='#3498db'">
-                Quay lại Thêm API
-            </button>
-        </div>
-    </div>
-
-    <!-- ========== PHẦN USER ========== -->
-    <div class="container-user">
-        <h2>Thêm Người Dùng</h2>
-        <label for="username">Username</label>
-        <input id="username" type="text" />
-        <label for="email">Email</label>
-        <input id="email" type="email" />
-        <label for="fullname">Full Name</label>
-        <input id="fullname" type="text" />
-        <label for="password">Password</label>
-        <input id="password" type="password" />
-        <label for="roleid">Role</label>
-        <select id="roleid">
-            <option value="1">1 - Admin</option>
-            <option value="2">2 - Giảng viên</option>
-            <option value="3">3 - Sinh viên</option>
-        </select>
-        <button id="submitUserBtn">Thêm User</button>
-        <p id="userMessage" class="message"></p>
-    </div>
-
-    <h2>Danh Sách Người Dùng</h2>
-    <div id="userTableContainer"></div>
-
-    <!-- Edit User Modal -->
-    <div id="editOverlay" class="modal-overlay">
-        <div class="modal">
-            <h3>✏️ Sửa Người Dùng</h3>
-            <input type="hidden" id="editUserId" />
-            <label>Username</label>
-            <input id="editUsername" type="text" />
-            <label>Email</label>
-            <input id="editEmail" type="email" />
-            <label>Full Name</label>
-            <input id="editFullname" type="text" />
-            <label>Password mới (để trống nếu không đổi)</label>
-            <input id="editPassword" type="password" />
-            <label>Role</label>
-            <select id="editRole">
-                <option value="1">1 - Admin</option>
-                <option value="2">2 - Giảng viên</option>
-                <option value="3">3 - Sinh viên</option>
-            </select>
-            <div class="actions">
-                <button class="small" style="background-color:#27ae60;" onclick="confirmUpdateUser()">Cập nhật</button>
-                <button class="small" style="background-color:#c0392b;" onclick="confirmDeleteFromModal()">Xóa</button>
-                <button class="small" style="background-color:#7f8c8d;" onclick="closeEditModal()">Hủy</button>
-            </div>
-            <p id="editMessage" class="message"></p>
-        </div>
-    </div>
-
-    <!-- ========== PHẦN QUẢN LÝ NGÔN NGỮ ========== -->
-    <div class="container-api">
-        <h2>🧠 Quản lý Ngôn ngữ</h2>
-
-        <label for="langId">ID Ngôn ngữ:</label>
-        <input type="number" id="langId" placeholder="VD: 1">
-
-        <label for="langName">Tên Ngôn ngữ:</label>
-        <input type="text" id="langName" placeholder="VD: Python">
-
-        <button onclick="addLanguage()">Thêm Ngôn ngữ</button>
-        <button id="toggleLangBtn" style="background-color:#8e44ad; color:white; padding:10px; border:none; border-radius:5px; cursor:pointer;">
-            Xem danh sách
+    <div class="top-nav">
+        <button onclick="window.location.href='DashboardLecturer.html'">
+            🎓 Giảng Viên
         </button>
 
-        <div id="langMessage" class="message"></div>
-
-        <div id="langListContainer" style="display:none; margin-top: 15px;">
-            <h3>Danh sách Ngôn ngữ</h3>
-            <div id="langListContent"></div>
-        </div>
+        <button onclick="window.location.href='StudentDashboard.html'">
+            📚 Sinh Viên
+        </button>
     </div>
 
 
+    <div class="container">
 
+        <!-- TITLE -->
+        <h1> Admin Dashboard</h1>
 
+        <!-- CARD -->
+        <div class="card">
 
-    <!-- ========== PHẦN XEM TIN NHẮN SINH VIÊN ========== -->
-    <div class="container-chat">
-        <h2>💬 Tin nhắn từ Sinh viên</h2>
-        <div id="studentMessages" class="chat-box">
-            <p>⏳ Đang tải tin nhắn...</p>
+            <h2>➕ Thêm Người Dùng</h2>
+
+            <!-- FORM -->
+            <form id="addUserForm">
+
+                <!-- USERNAME -->
+                <label for="username">Username</label>
+                <input id="username" type="text" placeholder="Nhập username..." required>
+
+                <!-- EMAIL -->
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="example@email.com" required>
+
+                <!-- FULLNAME -->
+                <label for="fullname">Full Name</label>
+                <input id="fullname" type="text" placeholder="Nguyễn Văn A" required>
+
+                <!-- PASSWORD -->
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="••••••••" required>
+
+                <!-- ROLE -->
+                <label for="roleid">Role</label>
+                <select id="roleid">
+                    <option value="1">👑 Admin</option>
+                    <option value="2">🎓 Giảng viên</option>
+                    <option value="3">📚 Sinh viên</option>
+                </select>
+
+                <!-- BUTTON -->
+                <button type="submit" id="submitUserBtn">
+                    🚀 Thêm User
+                </button>
+
+                <!-- MESSAGE -->
+                <p id="userMessage" class="message"></p>
+
+            </form>
+
         </div>
     </div>
 
-
-    <script src="Js/Admin.js"></script>
 </body>
 </html>

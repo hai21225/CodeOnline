@@ -2,331 +2,43 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Giảng Viên</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREATOR PAGE</title>
     <link rel="stylesheet" href="Css/DashboardLecturer.css">
-    <link rel="stylesheet" href="Css/LecturerAssignment.css" />
-    <link rel="stylesheet" href="Css/Dashboard.css"> <!-- nếu muốn dùng chung style nav -->
-
-    <link rel="stylesheet" href="Css/Notification.css">
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #333;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 10px;
-            z-index: 1000;
-        }
-
-            .top-nav a {
-                color: white;
-                text-decoration: none;
-                font-weight: bold;
-            }
-
-                .top-nav a:hover {
-                    color: #ffcc00;
-                }
-
-        section, h2, table {
-            padding-top: 60px;
-        }
-        /* tránh navbar che nội dung */
-    </style>
-
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- 🔹 Góc phải: Nút ba chấm dropdown -->
-    <div class="user-menu">
-        <button class="user-btn" id="userBtn">⋮</button>
-        <div class="dropdown" id="userDropdown">
-            <a href="#" id="viewProfile">Hồ sơ</a>
-            <a href="#" id="changePassword">Đổi mật khẩu</a>
-            <a href="#" id="logoutBtn">Đăng xuất</a>
-        </div>
-    </div>
-
-    <!-- 🔹 Thanh điều hướng -->
     <nav class="top-nav">
+        <div style="width: 40px;"></div>
 
-        <a href="#assignments">Quản lý bài tập</a>
-        <a href="#resources">Resource</a>
-        <a href="#submissions">Bài làm của sinh viên</a>
-        <a href="#students">Danh sách sinh viên</a>
-        <a href="#settings">Cài đặt</a>
+      
 
-
-
+        <div class="user-menu">
+            <button class="user-btn" id="userBtn">⋮</button>
+            <div class="dropdown" id="userDropdown">
+                <a href="#">Hồ sơ</a>
+                <a href="#">Đổi mật khẩu</a>
+                <hr>
+                <a href="#" id="logoutBtn" style="color: #ff4d4d !important;">Đăng xuất</a>
+            </div>
+        </div>
     </nav>
 
-    <!-- Section quản lý bài tập -->
-    <section id="assignments" class="section section--assignments">
-        <h2 class="section-title">Bài tập</h2>
-        <button id="addAssignmentBtn" class="btn btn--add">+ Thêm bài tập</button>
-        <div class="assignment-container" id="assignmentContainer"></div>
-    </section>
+    <main class="main-content">
+        <section id="assignments" class="section-container">
+            <h1 class="page-title">CREATOR PAGE</h1>
 
-    <!-- Popup xem chi tiết bài tập -->
-    <div id="assignmentModal" class="modal">
-        <div class="modal-content">
-            <h3 id="modalTitle"></h3>
-
-            <div class="modal-info">
-                <p><strong>Mô tả:</strong> <span id="modalDescription"></span></p>
-
-                <p><strong>Testcase mẫu:</strong></p>
-                <pre id="modalSampleTestcase" class="sample-box"></pre>
-
-                <p><strong>Độ khó:</strong> <span id="modalDifficult"></span></p>
-                <p><strong>Hạn nộp:</strong> <span id="modalDeadline"></span></p>
-                <p>
-                    <strong>Ẩn bài tập:</strong>
-                    <input type="checkbox" id="modalIsHidden">
-                </p>
+            <div class="header-action">
+                <h2 class="section-subtitle">📚 Danh sách bài tập</h2>
+                <button id="addAssignmentBtn" class="btn-primary-glow">+ Thêm bài tập mới</button>
             </div>
 
-            <div class="modal-buttons">
-                <button id="editResourceBtn">Thêm resource</button>
-                <button id="editAssignmentBtn">Thêm testcase</button>
-                <button id="updateAssignmentBtn">Chỉnh sửa bài tập</button>
-                <button id="viewResourceBtn">Xem hướng dẫn</button>
-                <button id="viewTestcaseBtn">Xem testcase</button>
-                <button id="doAssignmentBtn">Làm bài</button>
-                <button id="deleteAssignmentBtn">Xóa</button>
-            </div>
+            <div class="assignment-grid" id="assignmentContainer"></div>
+        </section>
+    </main>
 
-            <button id="closeModalBtn" class="close">X</button>
-        </div>
-    </div>
-
-
-    <!-- Modal thêm bài tập -->
-    <div id="addAssignmentModal" class="modal modal--add">
-        <div class="modal-content modal-content--form">
-            <h3 class="modal-title">Thêm bài tập mới</h3>
-            <form id="addAssignmentForm" class="form form--assignment">
-                <label>Tiêu đề:</label>
-                <input type="text" id="title" required>
-                <label>Mô tả:</label>
-                <textarea id="description"></textarea>
-                <label>Sample Test Case:</label>
-                <textarea id="sampleTestCase"></textarea>
-                <label>Deadline:</label>
-                <input type="datetime-local" id="deadline">
-                <label>Độ khó:</label>
-                <select id="difficulty">
-                    <option value="Easy">Dễ</option>
-                    <option value="Medium">Trung bình</option>
-                    <option value="Hard">Khó</option>
-                </select>
-                <div class="modal-buttons">
-                    <button type="submit" class="btn btn--success">Lưu</button>
-                    <button type="button" id="cancelAddBtn" class="btn btn--close close">X</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal chỉnh sửa bài tập -->
-    <div id="updateAssignmentModal" class="modal modal--update">
-        <div class="modal-content modal-content--form">
-            <h3 class="modal-title">Chỉnh sửa bài tập</h3>
-            <form id="updateAssignmentForm" class="form form--update">
-                <label>Tiêu đề:</label>
-                <input type="text" id="updateTitle">
-                <label>Mô tả:</label>
-                <textarea id="updateDescription"></textarea>
-                <label>Sample Test Case:</label>
-                <textarea id="updateSampleTestCase"></textarea>
-                <label>Deadline:</label>
-                <input type="datetime-local" id="updateDeadline">
-                <label>Độ khó:</label>
-                <select id="updateDifficulty">
-                    <option value="">-- Chọn options --</option>
-                    <option value="Easy">Dễ</option>
-                    <option value="Medium">Trung bình</option>
-                    <option value="Hard">Khó</option>
-                </select>
-                <div class="modal-buttons">
-                    <button type="submit" class="btn btn--success">Lưu</button>
-                    <button type="button" id="cancelUpdateBtn" class="btn btn--close close">X</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal thêm testcase -->
-    <div id="editAssignmentModal" class="modal modal--testcase">
-        <div class="modal-content modal-content--form">
-            <h3 class="modal-title">Thêm testcase</h3>
-            <section class="section section--testcase">
-                <h4 class="section-subtitle">Test Cases</h4>
-                <table id="testcaseTable" class="table table--testcase">
-                    <thead>
-                        <tr>
-                            <th>Input</th>
-                            <th>Expected Output</th>
-                            <th>Weight</th>
-                            <th>Xóa</th>
-                        </tr>
-                    </thead>
-                    <tbody id="testcaseBody"></tbody>
-                </table>
-                <button id="addTestcaseBtn" type="button" class="btn btn--add">+ Thêm Test Case</button>
-            </section>
-            <div class="modal-buttons">
-                <button id="saveEditBtn" class="btn btn--success">Lưu</button>
-                <button id="cancelEditBtn" class="btn btn--close close">X</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal xem testcase -->
-    <div id="viewTestCaseModal" class="modal modal--view">
-        <div class="modal-content modal-content--view">
-            <button id="closeViewTestCaseBtn" class="close close--modal">×</button>
-            <h3 class="modal-title">Danh sách testcase:</h3>
-        </div>
-    </div>
-
-    <!-- Modal chỉnh sửa testcase -->
-    <div id="updateTestcaseModal" class="modal modal--update-testcase">
-        <div class="modal-content modal-content--form">
-            <h3 class="modal-title">Chỉnh sửa testcase</h3>
-            <form id="updateTestcaseForm" class="form form--testcase">
-                <label>Input:</label>
-                <textarea id="updateInput"></textarea>
-                <label>Expected Output:</label>
-                <textarea id="updateExpectedOutput"></textarea>
-                <label>Weight:</label>
-                <input type="number" class="weight-value" value="1" min="0" step="0.1">
-                <div class="modal-buttons">
-                    <button type="submit" class="btn btn--success">Lưu</button>
-                    <button type="button" id="cancelUpdateTestcaseBtn" class="btn btn--close close">X</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal thêm resource -->
-    <div id="resourceModal" class="modal modal--resource">
-        <div class="modal-content modal-content--form">
-            <h3 class="modal-title">Thêm Resource</h3>
-            <form id="resourceForm" class="form form--resource">
-                <label>Tiêu đề:</label>
-                <input type="text" id="resourceTitleInput" required>
-                <label>Link:</label>
-                <input type="text" id="resourceLinkInput" placeholder="https://..." required>
-                <label>Loại:</label>
-                <select id="resourceTypeInput">
-                    <option value="" disabled selected>-- Chọn loại tài nguyên --</option>
-                    <option value="PDF">PDF</option>
-                    <option value="Video">Video</option>
-                    <option value="Hình ảnh">Hình ảnh</option>
-                    <option value="Tài liệu">Tài liệu</option>
-                    <option value="Link">Link</option>
-                </select>
-                <div class="modal-buttons">
-                    <button type="submit" class="btn btn--success">Lưu</button>
-                    <button type="button" id="cancelResourceBtn" class="btn btn--close close">X</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal xem resource -->
-    <div id="viewResourceModal" class="modal modal--view">
-        <div class="modal-content modal-content--view">
-            <button id="closeViewResourceBtn" class="close close--modal">×</button>
-            <h3 class="modal-title">Hướng dẫn bài tập</h3>
-        </div>
-    </div>
-
-    <!-- Modal cập nhật resource -->
-    <div id="updateResourceModal" class="modal modal--update-resource">
-        <div class="modal-content modal-content--form">
-            <h3 class="modal-title">Chỉnh sửa Resource</h3>
-            <form id="updateResourceForm" class="form form--update-resource">
-                <label>Tiêu đề:</label>
-                <input type="text" id="updateResourceTitle">
-                <label>Link:</label>
-                <input type="text" id="updateResourceLink" placeholder="https://...">
-                <label>Loại:</label>
-                <select id="updateResourceType">
-                    <option value="" disabled selected>-- Chọn loại tài nguyên --</option>
-                    <option value="PDF">PDF</option>
-                    <option value="Video">Video</option>
-                    <option value="Hình ảnh">Hình ảnh</option>
-                    <option value="Tài liệu">Tài liệu</option>
-                    <option value="Link">Link</option>
-                </select>
-                <div class="modal-buttons">
-                    <button type="submit" class="btn btn--success">Lưu</button>
-                    <button type="button" id="cancelUpdateResourceBtn" class="btn btn--close close">X</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-
-    <!-- Section danh sách sinh viên -->
-    <!--<section id="students">
-        <h2>👩‍🏫 Danh sách sinh viên</h2>
-        <table id="studentTable">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Họ tên</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <h3>Bảng ID sinh viên</h3>
-        <table id="idTable" style="display:none; margin-top:20px;">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>-->
-
-    <section id="students">
-        <h2>👩‍🏫 Danh sách sinh viên</h2>
-        <table id="studentTable">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Họ tên</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
-
-    <script src="Js/LecturerAssignment.js"></script>
     <script src="Js/DashboardLecturer.js"></script>
-    <!--<script src="Js/Notification.js"></script>-->
+    <script src="Js/LecturerAssignment.js"></script>
 </body>
 </html>

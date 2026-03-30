@@ -1,291 +1,225 @@
-﻿body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f8;
-    padding: 40px;
-    color: #333;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
+﻿/* ================= ROOT DESIGN SYSTEM ================= */
+:ROOT {
+    --PRIMARY: #00C6FF;
+    --PRIMARY-DARK: #0072FF;
+    --BG-DARK: #0F2027;
+    --BG-MID: #203A43;
+    --BG-LIGHT: #2C5364;
+    --WHITE: #FFFFFF;
+    --TEXT: #2C3E50;
+    --BORDER: #E0E0E0;
+    --RADIUS: 14PX;
+    --TRANSITION: ALL 0.25S EASE;
 }
 
-h1, h2, h3 {
-    text-align: center;
-    color: #2c3e50;
-    width: 100%;
+/* ================= BODY ================= */
+BODY {
+    MARGIN: 0;
+    FONT-FAMILY: "SEGOE UI", SANS-SERIF;
+    BACKGROUND: LINEAR-GRADIENT(135DEG, VAR(--BG-DARK), VAR(--BG-MID), VAR(--BG-LIGHT));
+    HEIGHT: 100VH;
+    DISPLAY: FLEX;
+    JUSTIFY-CONTENT: CENTER;
+    ALIGN-ITEMS: CENTER;
 }
 
+/* ================= CONTAINER ================= */
+.CONTAINER {
+    TEXT-ALIGN: CENTER;
+    COLOR: WHITE;
+}
+
+/* ================= CARD ================= */
+.CARD {
+    WIDTH: 400PX;
+    PADDING: 35PX;
+    BORDER-RADIUS: VAR(--RADIUS);
+    BACKGROUND: RGBA(255, 255, 255, 0.95);
+    BACKDROP-FILTER: BLUR(10PX);
+    BOX-SHADOW: 0 10PX 30PX RGBA(0,0,0,0.3), 0 5PX 15PX RGBA(0,0,0,0.2), INSET 0 1PX 0 RGBA(255,255,255,0.6);
+    TEXT-ALIGN: LEFT;
+    ANIMATION: FADEIN 0.6S EASE;
+    TRANSITION: VAR(--TRANSITION);
+}
+
+    /* HOVER CARD NỔI */
+    .CARD:HOVER {
+        TRANSFORM: TRANSLATEY(-5PX) SCALE(1.01);
+        BOX-SHADOW: 0 20PX 40PX RGBA(0,0,0,0.35), 0 10PX 25PX RGBA(0,0,0,0.25);
+    }
+
+/* ================= TITLES ================= */
+h1 {
+    margin-bottom: 20px;
+    font-size: 36px; /* Giữ kích thước lớn */
+    font-weight: 800; /* Làm chữ đậm */
+    letter-spacing: 2px;
+    text-transform: uppercase; /* Viết hoa toàn bộ */
+    /* CẬP NHẬT: Không dùng transparent text nữa, 
+       mà dùng màu trắng mờ cho Gradient để vẫn nhìn thấy */
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(0, 198, 255, 0.8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.95); /* Màu chữ trắng rõ ràng */
+    /* TĂNG CƯỜNG ĐỔ BÓNG: Đổ bóng màu primary để chữ nổi bật trên nền tối */
+    text-shadow: 0 4px 15px rgba(0, 198, 255, 0.5), 0 2px 5px rgba(255, 255, 255, 0.3);
+    /* CẬP NHẬT ANIMATION: ChỉfadeIn, không trượt xuống nữa để tránh trùng */
+    animation: fadeInTitle 1s ease-out;
+}
+
+/* Thêm animation mới chỉ fadeIn cho tiêu đề */
+@keyframes fadeInTitle {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+H2 {
+    TEXT-ALIGN: CENTER;
+    MARGIN-BOTTOM: 25PX;
+    COLOR: VAR(--PRIMARY-DARK);
+}
+
+/* ================= LABEL ================= */
 label {
-    font-weight: bold;
     display: block;
-    margin-top: 10px;
-    font-size: 14px;
+    margin-top: 16px;
+    font-weight: 700; /* Đậm hơn để dễ đọc */
+    font-size: 13px;
+    text-transform: uppercase; /* Viết hoa nhẹ cho chuyên nghiệp */
+    letter-spacing: 0.5px;
+    color: var(--bg-dark); /* Dùng màu tối để tương phản mạnh với nền trắng của card */
+    opacity: 0.8; /* Làm mờ nhẹ một chút cho tinh tế */
 }
 
+/* ================= INPUT & SELECT ================= */
 input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-button {
-    margin-top: 10px;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    color: white;
-}
-
-.message {
-    margin-top: 15px;
-    text-align: center;
-    font-weight: bold;
+    width: 100%; /* Đảm bảo chiếm hết chiều ngang của card */
+    padding: 12px 15px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
     font-size: 14px;
-}
-
-    .message.success {
-        color: green;
-    }
-
-    .message.error {
-        color: #c0392b;
-    }
-
-.container-api, .container-user {
-    width: 400px;
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-    .container-api button {
-        background-color: #3498db;
-    }
-
-        .container-api button:hover {
-            background-color: #2980b9;
-        }
-
-    .container-user button {
-        background: #0066cc;
-    }
-
-        .container-user button:hover {
-            background: #0056b3;
-        }
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin-top: 10px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
-
-th {
-    background-color: #0066cc;
-    color: white;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.btn-edit {
-    background-color: #27ae60;
-    padding: 6px 10px;
-    border-radius: 5px;
-    color: white;
+    color: var(--text);
+    background: #ffffff;
+    transition: var(--transition);
+    /* QUAN TRỌNG NHẤT: Dòng này giúp thanh Select bằng độ dài với Input */
+    box-sizing: border-box;
+    /* Thêm cái này để thanh select nhìn sang hơn */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
     cursor: pointer;
-    border: none;
 }
 
-    .btn-edit:hover {
-        background-color: #2ecc71;
-    }
-
-.btn-delete {
-    background-color: #c0392b;
-    padding: 6px 10px;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    border: none;
+/* ================= BUTTON ================= */
+BUTTON {
+    MARGIN-TOP: 25PX;
+    WIDTH: 100%;
+    PADDING: 14PX;
+    BORDER: NONE;
+    BORDER-RADIUS: 12PX;
+    BACKGROUND: LINEAR-GRADIENT(135DEG, VAR(--PRIMARY), VAR(--PRIMARY-DARK));
+    COLOR: WHITE;
+    FONT-SIZE: 16PX;
+    FONT-WEIGHT: 600;
+    LETTER-SPACING: 0.5PX;
+    CURSOR: POINTER;
+    POSITION: RELATIVE;
+    OVERFLOW: HIDDEN;
+    TRANSITION: VAR(--TRANSITION);
+    BOX-SHADOW: 0 6PX 15PX RGBA(0,0,0,0.25), INSET 0 -2PX 0 RGBA(0,0,0,0.2);
 }
 
-    .btn-delete:hover {
-        background-color: #e74c3c;
+    /* SHINE EFFECT */
+    BUTTON::BEFORE {
+        CONTENT: "";
+        POSITION: ABSOLUTE;
+        TOP: 0;
+        LEFT: -75%;
+        WIDTH: 50%;
+        HEIGHT: 100%;
+        BACKGROUND: LINEAR-GRADIENT( 120DEG, TRANSPARENT, RGBA(255,255,255,0.5), TRANSPARENT );
+        TRANSFORM: SKEWX(-25DEG);
     }
 
-/* Modal */
-.modal-overlay {
+    /* HOVER */
+    BUTTON:HOVER::BEFORE {
+        ANIMATION: SHINE 0.8S;
+    }
+
+    BUTTON:HOVER {
+        TRANSFORM: TRANSLATEY(-2PX);
+        BOX-SHADOW: 0 10PX 25PX RGBA(0,0,0,0.35), INSET 0 -2PX 0 RGBA(0,0,0,0.2);
+    }
+
+    /* CLICK "NẢY" */
+    BUTTON:ACTIVE {
+        TRANSFORM: SCALE(0.94) TRANSLATEY(3PX);
+        BOX-SHADOW: 0 4PX 10PX RGBA(0,0,0,0.2), INSET 0 2PX 4PX RGBA(0,0,0,0.3);
+    }
+
+/* ================= MESSAGE ================= */
+.MESSAGE {
+    TEXT-ALIGN: CENTER;
+    MARGIN-TOP: 15PX;
+    FONT-WEIGHT: 600;
+    FONT-SIZE: 14PX;
+}
+
+/* ================= ANIMATIONS ================= */
+@KEYFRAMES FADEIN {
+    FROM {
+        OPACITY: 0;
+        TRANSFORM: TRANSLATEY(25PX);
+    }
+
+    TO {
+        OPACITY: 1;
+        TRANSFORM: TRANSLATEY(0);
+    }
+}
+
+@KEYFRAMES SHINE {
+    100% {
+        LEFT: 125%;
+    }
+}
+
+
+
+/* ===== NAV TOP RIGHT ===== */
+.top-nav {
     position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.modal {
-    width: 420px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-    .modal h3 {
-        margin: 0 0 10px 0;
-        text-align: center;
-    }
-
-    .modal .actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 12px;
-    }
-
-.small {
-    width: auto;
-    padding: 8px 12px;
-}
-
-#userTableContainer {
-    width: 90%;
-    max-width: 1000px;
-}
-
-#apiListContainer {
-    margin-top: 15px;
-}
-
-.logout {
-    position: fixed;
-    top: 20px;
-    right: 40px;
-    background: #dc3545;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-    .logout:hover {
-        background: #a71d2a;
-    }
-
-/* ========== CHAT BOX ========== */
-.container-chat {
-    width: 90%;
-    max-width: 800px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin-top: 30px;
-}
-
-.chat-box {
-    height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    background: #fafafa;
-}
-
-.chat-message {
-    margin: 8px 0;
-    padding: 10px;
-    border-radius: 8px;
-    max-width: 70%;
-    clear: both;
-}
-
-    .chat-message.student {
-        background-color: #e8f4fd;
-        align-self: flex-start;
-    }
-
-    .chat-message.admin {
-        background-color: #d1f5d3;
-        margin-left: auto;
-        text-align: right;
-    }
-
-.chat-input {
-    display: flex;
-    margin-top: 10px;
-    gap: 10px;
-}
-
-    .chat-input input {
-        flex: 1;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-
-    .chat-input button {
-        background-color: #0066cc;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-        .chat-input button:hover {
-            background-color: #004a99;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-/* ========== NÚT ĐIỀU HƯỚNG TOP-RIGHT ========== */
-.top-right-nav {
-    position: fixed; /* Giữ cố định khi cuộn trang */
     top: 20px;
     right: 20px;
-    display: flex; /* Xếp các nút nằm ngang */
-    gap: 10px; /* Khoảng cách giữa các nút */
-    z-index: 1001; /* Đảm bảo nó nổi trên modal */
+    z-index: 999;
 }
 
-    /* Ghi đè các style 'button' chung */
-    .top-right-nav button {
+    /* button riêng cho nav */
+    .top-nav button {
         width: auto;
-        margin-top: 0;
-        padding: 8px 12px;
+        padding: 10px 16px;
         font-size: 14px;
-        background-color: #3498db; /* Màu xanh dương */
+        border-radius: 10px;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        color: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
-        .top-right-nav button:hover {
-            background-color: #2980b9;
+        /* hover */
+        .top-nav button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        /* click nảy */
+        .top-nav button:active {
+            transform: scale(0.92) translateY(2px);
         }

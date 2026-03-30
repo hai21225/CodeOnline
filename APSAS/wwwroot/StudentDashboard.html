@@ -2,139 +2,58 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODE MASTERY</title>
     <link rel="stylesheet" href="Css/StudentAssignment.css">
-    <link rel="stylesheet" href="Css/Dashboard.css" />
-    <link rel="stylesheet" href="Css/Notification.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- 🔹 Góc phải: Nút ba chấm dropdown -->
-    <div class="user-menu">
-        <button class="user-btn" id="userBtn">⋮</button>
-        <div class="dropdown" id="userDropdown">
-            <a href="#" id="viewProfile">Hồ sơ</a>
-            <a href="#" id="changePassword">Đổi mật khẩu</a>
-            <a href="#" id="logoutBtn">Đăng xuất</a>
-        </div>
-    </div>
-
-
-
-    <!-- 🔹 Thanh điều hướng -->
     <nav class="top-nav">
-        <a href="#assignments">📚 Bài tập</a>
-        <a href="#submissions">🧩 Bài làm</a>
-        <a href="#resources">🧠 Resource</a>
-        <a href="#settings">⚙️ Cài đặt</a>
+        <div style="width: 50px;"></div>
+
+      
     </nav>
 
-    <div id="bellContainer">
-        <span id="bell">🔔</span>
-        <span id="badge" class="badge">0</span>
+    <main class="main-content">
+        <h1 class="page-title">CODE MASTERY</h1>
 
-        <div id="notificationsPopup" class="popup">
-            <div class="popup-header">
-                <h4>Thông báo</h4>
+        <section id="assignments" class="section-container">
+            <h2 class="section-subtitle">📝 Bài tập </h2>
+            <div class="assignment-grid" id="assignmentContainer"></div>
+        </section>
+
+        <section id="submissions" class="section-container">
+            <h2 class="section-subtitle">✅ Bài nộp của tôi</h2>
+            <div class="submission-grid" id="submissionContainer">
+                <p style="color: rgba(255,255,255,0.6)">Đang tải danh sách bài nộp...</p>
             </div>
+        </section>
+    </main>
 
-            <div id="notifications" class="popup-body">
-                <p id="noNotificationMsg">Không có thông báo nào.</p>
-            </div>
-
-            <div class="popup-footer">
-                <button id="markAllBtn">🟩 Đã xem tất cả</button>
-            </div>
-
-            <audio id="notifSound"
-                   src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
-                   preload="auto"></audio>
-        </div>
-    </div>
-
-
-
-    <!--enter voo trong nay để thêm-->
-    <!------------------đó thêm trong đoạn này----------------------------------------->
-    <!--phan nay là cho bài tập ae né ra, có thêm gì thì thêm ở trên : hải-->
-    <section id="assignments">
-        <h2>Bài tập</h2>
-        <div class="assignment-container" id="assignmentContainer"></div>
-    </section>
-
-    <!-- Popup chi tiết của bài tập : hải-->
     <div id="assignmentModal" class="modal">
         <div class="modal-content">
+            <button id="closeModalBtn" class="close-x">×</button>
             <h3 id="modalTitle"></h3>
-
             <div class="modal-info">
                 <p><strong>Mô tả:</strong> <span id="modalDescription"></span></p>
-
                 <p><strong>Testcase mẫu:</strong></p>
                 <pre id="modalSampleTestcase" class="sample-box"></pre>
-
-                <p><strong>Độ khó:</strong> <span id="modalDifficult"></span></p>
-                <p><strong>Hạn nộp:</strong> <span id="modalDeadline"></span></p>
+                <div class="meta-info">
+                    <span>Độ khó: <b id="modalDifficult"></b></span>
+                    <span>Hạn nộp: <b id="modalDeadline"></b></span>
+                </div>
             </div>
-
             <div class="modal-buttons">
-                <button id="viewResourceBtn">Xem hướng dẫn</button>
-                <button id="doAssignmentBtn">Làm bài</button>
+                <button id="viewResourceBtn" class="btn-secondary">Xem hướng dẫn</button>
+                <button id="doAssignmentBtn" class="btn-primary-glow">Làm bài ngay</button>
             </div>
-
-            <button id="closeModalBtn" class="close">X</button>
         </div>
     </div>
 
-    <!-- Popup xem Resource của học sinh -->
-    <div id="studentResourceModal" class="modal">
-        <div class="modal-content">
-            <button id="closeStudentResourceBtn" class="close">X</button>
-            <h3>Hướng dẫn làm bài: </h3>
-        </div>
-    </div>
-
-
-    <!-- 🔹 Danh sách bài nộp của sinh viên -->
-    <section id="submissions">
-        <h2>Bài nộp của tôi</h2>
-        <div class="submission-container" id="submissionContainer">
-            <p>Đang tải danh sách bài nộp...</p>
-        </div>
-    </section>
-
-
-    <!-- 🔹 Popup thông tin bài nộp -->
-    <div id="submissionModal" class="modal">
-        <div class="modal-content">
-            <button id="closeSubmissionModalBtn" class="close">X</button>
-            <div class="modal-content">
-                <h3>Thông tin bài nộp</h3>
-                <p><strong>Ngôn ngữ:</strong> <span id="modalLanguage"></span></p>
-                <p><strong>Code:</strong></p>
-                <pre id="modalCode" class="code-block"></pre>
-                <p><strong>Điểm:</strong> <span id="modalScore"></span></p>
-                <p><strong>Trạng thái:</strong> <span id="modalStatus"></span></p>
-                <p><strong>Ngày nộp:</strong> <span id="modalSubmittedAt"></span></p>
-            </div>
-            <button id="viewResultBtn">Xem kết quả chi tiết</button>
-        </div>
-    </div>
-
-
-    <!-- 🔹 Popup chi tiết bài nộp -->
-    <div id="submissionResultModal" class="modal">
-        <div class="modal-content">
-            <button id="closeResultModalBtn" class="close">X</button>
-            <h3>Kết quả chi tiết bài nộp</h3>
-            <div id="resultList"></div>
-        </div>
-    </div>
-
-
+    <audio id="notifSound" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
     <script src="Js/StudentAssignment.js"></script>
     <script src="Js/Notification.js"></script>
-  
 </body>
 </html>
