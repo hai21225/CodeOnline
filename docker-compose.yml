@@ -49,8 +49,6 @@ services:
       - user-service
       - assignment-service
       - submission-service
-      - feedback-service
-      - notification-service
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5261
@@ -115,6 +113,8 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
+      # piston:
+      #   condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5090
@@ -123,14 +123,34 @@ services:
       - RabbitMQ__UserName=guest
       - RabbitMQ__Password=guest
       - RabbitMQ__Port=5672
+      - Services__PistonUrl=http://piston_api:2000
     networks:
       - apsas-net
     restart: unless-stopped
+  
+  # piston:
+  #   image: piston-custom
+  #   container_name: piston
+  #   ports:
+  #     - "2000:2000"
+  #   networks:
+  #     - apsas-net
+  #   restart: unless-stopped
+  #   privileged: true
+  #   volumes:
+  #     - /run:/run           # cần để isolate tạo thư mục
+  #     - /sys/fs/cgroup:/sys/fs/cgroup:rw  # phải rw cho cgroup v2
+  #     - /run/isolate:/run/isolate       # mount riêng cho isolate
+  #     - ./data/piston/packages:/piston/packages
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:2000"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 5
 
 volumes:
   rabbitmq-data:
   db-data:
-
 networks:
   apsas-net:
     driver: bridge

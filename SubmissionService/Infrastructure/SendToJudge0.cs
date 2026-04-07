@@ -8,9 +8,12 @@ namespace SubmissionService.Infrastructure
     public class SendToJudge0 : ISendToJudge0
     {
         private readonly HttpClient _httpClient;
-        public SendToJudge0(HttpClient httpClient)
+        private readonly IConfiguration _configuration;
+        public SendToJudge0(HttpClient httpClient,IConfiguration configuration)
         {
             _httpClient = httpClient;
+            _configuration = configuration;
+
         }
 
         public async Task<ResultDTO?> RunCode(string sourceCode, int languageId, string stdin, string urlJudge0)
@@ -23,8 +26,11 @@ namespace SubmissionService.Infrastructure
                 return id switch
                 {
                     71 => "python",
-                    54 => "cpp",
+                    54 => "gpp",
                     62 => "java",
+                    50=>"gcc",
+                    51=>"mono",
+                    73=>"rust",
                     _=> "python"
                 };
             }
@@ -42,7 +48,9 @@ namespace SubmissionService.Infrastructure
                     JsonSerializer.Serialize(body),
                     Encoding.UTF8,
                     "application/json");
-            var response = await _httpClient.PostAsync($"http://localhost:2000/api/v2/execute",content);
+
+            var pistonUrl = _configuration["Services:PistonUrl"];
+            var response = await _httpClient.PostAsync($"{pistonUrl}/api/v2/execute", content);
             if (!response.IsSuccessStatusCode) return null;
 
             var result = await response.Content.ReadAsStringAsync();
