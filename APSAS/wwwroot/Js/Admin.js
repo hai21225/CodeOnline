@@ -21,7 +21,7 @@ async function secureFetch(url, options = {}) {
 
 function logout() {
     localStorage.clear();
-    window.location.href = "DN.html";
+    window.location.href = "Login.html";
 }
 
 // ========== API CONFIG ==========
