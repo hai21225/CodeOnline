@@ -2,53 +2,89 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Thêm User</title>
+    <title>Admin - Quản lý User</title>
     <link rel="stylesheet" href="Css/Admin.css">
 </head>
 <body>
 
-    <!-- NAV TOP RIGHT -->
     <div class="top-nav">
         <button onclick="window.location.href='StudentDashboard.html'">Sinh Viên</button>
         <button onclick="window.location.href='DashboardLecturer.html'">Giảng Viên</button>
-        <button onclick="logout()">Đăng xuất</button>
+        <button onclick="logout()" class="btn-logout">Đăng xuất</button>
     </div>
 
-    <div class="container">
-        <h1>Admin</h1>
+    <h1>Trang Quản Trị</h1>
 
-        <div class="card">
-            <h2>Thêm Người Dùng</h2>
+    <div class="main-layout-horizontal">
 
-            <label for="username">Username</label>
-            <input id="username" type="text" />
+        <div class="card form-container">
+            <h2 class="bounce-text">Thêm Người Dùng</h2>
 
-            <label for="email">Email</label>
-            <input id="email" type="email" />
+            <div class="input-group">
+                <label>Username</label>
+                <input id="username" type="text" placeholder="Nhập tên đăng nhập..." />
 
-            <label for="fullname">Full Name</label>
-            <input id="fullname" type="text" />
+                <label>Email</label>
+                <input id="email" type="email" placeholder="example@ut.edu.vn" />
 
-            <label for="password">Password</label>
-            <input id="password" type="password" />
+                <label>Full Name</label>
+                <input id="fullname" type="text" placeholder="Họ và tên..." />
 
-            <label for="roleid">Role</label>
-            <select id="roleid">
+                <label>Password</label>
+                <input id="password" type="password" placeholder="••••••••" />
+
+                <label>Role</label>
+                <select id="roleid">
+                    <option value="1">Admin</option>
+                    <option value="2">Giảng viên</option>
+                    <option value="3">Sinh viên</option>
+                </select>
+
+                <button id="submitUserBtn">Thêm User</button>
+                <p id="userMessage" class="message"></p>
+            </div>
+        </div>
+
+        <div class="card table-container">
+            <h2 class="bounce-text">Danh Sách Người Dùng</h2>
+            <div id="userTableContainer">
+            </div>
+        </div>
+
+    </div>
+
+    <div id="editOverlay" class="modal-overlay" style="display:none;">
+        <div class="modal">
+            <h3 class="bounce-text">✏️ Sửa Người Dùng</h3>
+            <input type="hidden" id="editUserId" />
+
+            <label>Username</label>
+            <input id="editUsername" type="text" />
+
+            <label>Email</label>
+            <input id="editEmail" type="email" />
+
+            <label>Full Name</label>
+            <input id="editFullname" type="text" />
+
+            <label>Password mới</label>
+            <input id="editPassword" type="password" />
+
+            <label>Role</label>
+            <select id="editRole">
                 <option value="1">Admin</option>
                 <option value="2">Giảng viên</option>
                 <option value="3">Sinh viên</option>
             </select>
 
-            <button id="submitUserBtn">Thêm User</button>
-
-            <p id="userMessage" class="message"></p>
+            <div class="actions">
+                <button class="btn-update" onclick="confirmUpdateUser()">Cập nhật</button>
+                <button class="btn-delete-modal" onclick="confirmDeleteFromModal()">Xóa</button>
+                <button class="btn-cancel" onclick="closeEditModal()">Hủy</button>
+            </div>
+            <p id="editMessage" class="message"></p>
         </div>
     </div>
-
-    <!-- ⚠️ Giữ lại để JS không lỗi -->
-    <div id="userTableContainer" style="display:none;"></div>
-    <div id="editOverlay" style="display:none;"></div>
-    <div id="studentMessages" style="display:none;"></div>
 
     <script src="Js/Admin.js"></script>
 </body>

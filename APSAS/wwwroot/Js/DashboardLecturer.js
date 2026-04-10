@@ -1,4 +1,4 @@
-﻿// ======== SESSION TIMEOUT ========
+﻿// ======== SESSION TIMEOUT (Giữ nguyên) ========
 let inactivityTime = 0;
 const maxInactivity = 5 * 60 * 1000; // 5 phút
 
@@ -20,10 +20,14 @@ window.onload = () => {
     }, 1000);
 
     checkAccess();
-    loadStudents();
+
+    // Kiểm tra nếu có bảng mới load (Tránh lỗi null trên các trang không có bảng)
+    if (document.getElementById("studentTable")) {
+        loadStudents();
+    }
 };
 
-// ======== ACCESS CONTROL ========
+// ======== ACCESS CONTROL (Giữ nguyên) ========
 function checkAccess() {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("role");
@@ -34,7 +38,7 @@ function checkAccess() {
     }
 }
 
-// ======== LOAD STUDENTS ========
+// ======== LOAD STUDENTS (Giữ nguyên logic render) ========
 const apiUrl = "http://localhost:5261/GetAllStudents";
 let studentsData = [];
 
@@ -52,7 +56,10 @@ async function loadStudents() {
         studentsData = data;
 
         const tbody = document.querySelector("#studentTable tbody");
-        // 👉 Chỉ hiển thị nút "Xem bài tập", không có "Xem ID" và không dùng bảng ID
+
+        // SỬA LỖI: Kiểm tra tbody tồn tại trước khi set innerHTML
+        if (!tbody) return;
+
         tbody.innerHTML = data.map(s =>
             `<tr id="row-${s.userID}">
                 <td>${s.username}</td>
@@ -66,74 +73,61 @@ async function loadStudents() {
         ).join("");
 
     } catch (err) {
-        alert(err.message);
+        console.error(err.message);
     }
 }
 
-// ======== HIỂN THỊ ID + NÚT XEM BÀI TẬP ========
-//function showID(userID, username) {
-//    const idTable = document.getElementById("idTable");
-//    const tbody = idTable.querySelector("tbody");
-
-//    // Hiển thị bảng có thêm nút "Xem bài tập"
-//    tbody.innerHTML = `
-//        <tr>
-//            <td>${userID}</td>
-//            <td>${username}</td>
-//            <td>
-//                <button onclick="openFeedback(${userID})" class="btn-view-task">
-//                    Xem bài tập
-//                </button>
-//            </td>
-//        </tr>
-//    `;
-
-//    idTable.style.display = "table"; // Hiện bảng ID
-//}
-
-// ======== MỞ TRANG FEEDBACK ========
+// ======== MỞ TRANG FEEDBACK (Giữ nguyên) ========
 function openFeedback(studentId) {
-    // Lưu ID sinh viên vào localStorage
     localStorage.setItem("selectedStudentId", studentId);
-
-    // 🔧 Đồng bộ key để Feedback.html đọc được
     localStorage.setItem("studentId", studentId);
-
-    // Chuyển sang trang Feedback
     window.location.href = "Feedback.html";
 }
 
-// --- Xử lý dropdown người dùng ---
+// --- Xử lý dropdown người dùng (SỬA LỖI: Thêm kiểm tra Null tại đây) ---
 const userBtn = document.getElementById("userBtn");
 const userDropdown = document.getElementById("userDropdown");
 
-// Toggle hiển thị menu
-userBtn.addEventListener("click", () => {
-    userDropdown.style.display =
-        userDropdown.style.display === "block" ? "none" : "block";
-});
+// Chỉ gán sự kiện nếu element tồn tại trên trang hiện tại
+if (userBtn && userDropdown) {
+    userBtn.addEventListener("click", () => {
+        userDropdown.style.display =
+            userDropdown.style.display === "block" ? "none" : "block";
+    });
 
-// Ẩn menu khi click ra ngoài
-window.addEventListener("click", (e) => {
-    if (!userBtn.contains(e.target) && !userDropdown.contains(e.target)) {
-        userDropdown.style.display = "none";
-    }
-});
+    window.addEventListener("click", (e) => {
+        if (!userBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+            userDropdown.style.display = "none";
+        }
+    });
+}
 
-// Nút đăng xuất
-document.getElementById("logoutBtn").onclick = () => {
+// Nút đăng xuất (Kiểm tra ID trước khi gán)
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+    logoutBtn.onclick = () => {
+        if (confirm("Bạn có chắc muốn đăng xuất không?")) {
+            localStorage.clear();
+            window.location.href = "Login.html";
+        }
+    };
+}
+
+// Các nút chuyển trang khác (Kiểm tra ID trước khi gán)
+const viewProfile = document.getElementById("viewProfile");
+if (viewProfile) {
+    viewProfile.onclick = () => { window.location.href = "Profile.html"; };
+}
+
+const changePassword = document.getElementById("changePassword");
+if (changePassword) {
+    changePassword.onclick = () => { window.location.href = "ChangePassword.html"; };
+}
+
+// Xuất hàm logout ra global để hỗ trợ các nút dùng onclick="logout()" trực tiếp
+window.logout = () => {
     if (confirm("Bạn có chắc muốn đăng xuất không?")) {
         localStorage.clear();
-        window.location.href = "/Login.html";
+        window.location.href = "Login.html";
     }
-};
-
-// Nút xem hồ sơ
-document.getElementById("viewProfile").onclick = () => {
-    window.location.href = "/Profile.html";
-};
-
-// Nút đổi mật khẩu
-document.getElementById("changePassword").onclick = () => {
-    window.location.href = "/ChangePassword.html";
 };

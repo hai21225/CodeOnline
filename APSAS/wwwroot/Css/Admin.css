@@ -1,225 +1,230 @@
-﻿/* ================= ROOT DESIGN SYSTEM ================= */
-:ROOT {
-    --PRIMARY: #00C6FF;
-    --PRIMARY-DARK: #0072FF;
-    --BG-DARK: #0F2027;
-    --BG-MID: #203A43;
-    --BG-LIGHT: #2C5364;
-    --WHITE: #FFFFFF;
-    --TEXT: #2C3E50;
-    --BORDER: #E0E0E0;
-    --RADIUS: 14PX;
-    --TRANSITION: ALL 0.25S EASE;
+﻿:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --bg-body: #0f172a;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+    --radius: 16px;
 }
 
-/* ================= BODY ================= */
-BODY {
-    MARGIN: 0;
-    FONT-FAMILY: "SEGOE UI", SANS-SERIF;
-    BACKGROUND: LINEAR-GRADIENT(135DEG, VAR(--BG-DARK), VAR(--BG-MID), VAR(--BG-LIGHT));
-    HEIGHT: 100VH;
-    DISPLAY: FLEX;
-    JUSTIFY-CONTENT: CENTER;
-    ALIGN-ITEMS: CENTER;
+body {
+    margin: 0;
+    padding-bottom: 50px;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top right, #1e293b, #0f172a);
+    color: white;
+    min-height: 100vh;
 }
 
-/* ================= CONTAINER ================= */
-.CONTAINER {
-    TEXT-ALIGN: CENTER;
-    COLOR: WHITE;
-}
-
-/* ================= CARD ================= */
-.CARD {
-    WIDTH: 400PX;
-    PADDING: 35PX;
-    BORDER-RADIUS: VAR(--RADIUS);
-    BACKGROUND: RGBA(255, 255, 255, 0.95);
-    BACKDROP-FILTER: BLUR(10PX);
-    BOX-SHADOW: 0 10PX 30PX RGBA(0,0,0,0.3), 0 5PX 15PX RGBA(0,0,0,0.2), INSET 0 1PX 0 RGBA(255,255,255,0.6);
-    TEXT-ALIGN: LEFT;
-    ANIMATION: FADEIN 0.6S EASE;
-    TRANSITION: VAR(--TRANSITION);
-}
-
-    /* HOVER CARD NỔI */
-    .CARD:HOVER {
-        TRANSFORM: TRANSLATEY(-5PX) SCALE(1.01);
-        BOX-SHADOW: 0 20PX 40PX RGBA(0,0,0,0.35), 0 10PX 25PX RGBA(0,0,0,0.25);
-    }
-
-/* ================= TITLES ================= */
 h1 {
-    margin-bottom: 20px;
-    font-size: 36px; /* Giữ kích thước lớn */
-    font-weight: 800; /* Làm chữ đậm */
-    letter-spacing: 2px;
-    text-transform: uppercase; /* Viết hoa toàn bộ */
-    /* CẬP NHẬT: Không dùng transparent text nữa, 
-       mà dùng màu trắng mờ cho Gradient để vẫn nhìn thấy */
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(0, 198, 255, 0.8));
+    text-align: center;
+    margin: 80px 0 30px;
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #818cf8, #c084fc);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: rgba(255, 255, 255, 0.95); /* Màu chữ trắng rõ ràng */
-    /* TĂNG CƯỜNG ĐỔ BÓNG: Đổ bóng màu primary để chữ nổi bật trên nền tối */
-    text-shadow: 0 4px 15px rgba(0, 198, 255, 0.5), 0 2px 5px rgba(255, 255, 255, 0.3);
-    /* CẬP NHẬT ANIMATION: ChỉfadeIn, không trượt xuống nữa để tránh trùng */
-    animation: fadeInTitle 1s ease-out;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Thêm animation mới chỉ fadeIn cho tiêu đề */
-@keyframes fadeInTitle {
-    from {
-        opacity: 0;
+/* LAYOUT SONG SONG */
+.main-layout-horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 0 40px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* CARD CHUNG */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    color: var(--text-main);
+}
+
+.form-container {
+    flex: 1;
+    max-width: 420px;
+}
+
+.table-container {
+    flex: 2.5;
+    min-width: 600px;
+}
+
+/* HIỆU ỨNG NẨY CHỈ KHI RÊ VÀO CHỮ */
+.bounce-text {
+    display: block;
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    cursor: default;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+    .bounce-text:hover {
+        transform: translateY(-8px) scale(1.05);
+        color: var(--primary-hover);
     }
 
-    to {
-        opacity: 1;
-    }
-}
-
-H2 {
-    TEXT-ALIGN: CENTER;
-    MARGIN-BOTTOM: 25PX;
-    COLOR: VAR(--PRIMARY-DARK);
-}
-
-/* ================= LABEL ================= */
+/* FORM ELEMENTS */
 label {
     display: block;
-    margin-top: 16px;
-    font-weight: 700; /* Đậm hơn để dễ đọc */
-    font-size: 13px;
-    text-transform: uppercase; /* Viết hoa nhẹ cho chuyên nghiệp */
-    letter-spacing: 0.5px;
-    color: var(--bg-dark); /* Dùng màu tối để tương phản mạnh với nền trắng của card */
-    opacity: 0.8; /* Làm mờ nhẹ một chút cho tinh tế */
+    margin: 15px 0 5px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-muted);
 }
 
-/* ================= INPUT & SELECT ================= */
 input, select {
-    width: 100%; /* Đảm bảo chiếm hết chiều ngang của card */
+    width: 100%;
     padding: 12px 15px;
-    margin-top: 8px;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    border: 1.5px solid var(--border);
-    font-size: 14px;
-    color: var(--text);
-    background: #ffffff;
-    transition: var(--transition);
-    /* QUAN TRỌNG NHẤT: Dòng này giúp thanh Select bằng độ dài với Input */
+    background: #f8fafc;
     box-sizing: border-box;
-    /* Thêm cái này để thanh select nhìn sang hơn */
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
+    transition: all 0.2s;
+}
+
+    input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: white;
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    }
+
+/* BUTTONS */
+button {
     cursor: pointer;
+    border: none;
+    font-weight: 600;
+    transition: all 0.2s;
 }
 
-/* ================= BUTTON ================= */
-BUTTON {
-    MARGIN-TOP: 25PX;
-    WIDTH: 100%;
-    PADDING: 14PX;
-    BORDER: NONE;
-    BORDER-RADIUS: 12PX;
-    BACKGROUND: LINEAR-GRADIENT(135DEG, VAR(--PRIMARY), VAR(--PRIMARY-DARK));
-    COLOR: WHITE;
-    FONT-SIZE: 16PX;
-    FONT-WEIGHT: 600;
-    LETTER-SPACING: 0.5PX;
-    CURSOR: POINTER;
-    POSITION: RELATIVE;
-    OVERFLOW: HIDDEN;
-    TRANSITION: VAR(--TRANSITION);
-    BOX-SHADOW: 0 6PX 15PX RGBA(0,0,0,0.25), INSET 0 -2PX 0 RGBA(0,0,0,0.2);
+#submitUserBtn {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    background: var(--primary);
+    color: white;
+    border-radius: 10px;
 }
 
-    /* SHINE EFFECT */
-    BUTTON::BEFORE {
-        CONTENT: "";
-        POSITION: ABSOLUTE;
-        TOP: 0;
-        LEFT: -75%;
-        WIDTH: 50%;
-        HEIGHT: 100%;
-        BACKGROUND: LINEAR-GRADIENT( 120DEG, TRANSPARENT, RGBA(255,255,255,0.5), TRANSPARENT );
-        TRANSFORM: SKEWX(-25DEG);
+    #submitUserBtn:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
     }
 
-    /* HOVER */
-    BUTTON:HOVER::BEFORE {
-        ANIMATION: SHINE 0.8S;
+    #submitUserBtn:active {
+        transform: scale(0.97);
     }
 
-    BUTTON:HOVER {
-        TRANSFORM: TRANSLATEY(-2PX);
-        BOX-SHADOW: 0 10PX 25PX RGBA(0,0,0,0.35), INSET 0 -2PX 0 RGBA(0,0,0,0.2);
-    }
-
-    /* CLICK "NẢY" */
-    BUTTON:ACTIVE {
-        TRANSFORM: SCALE(0.94) TRANSLATEY(3PX);
-        BOX-SHADOW: 0 4PX 10PX RGBA(0,0,0,0.2), INSET 0 2PX 4PX RGBA(0,0,0,0.3);
-    }
-
-/* ================= MESSAGE ================= */
-.MESSAGE {
-    TEXT-ALIGN: CENTER;
-    MARGIN-TOP: 15PX;
-    FONT-WEIGHT: 600;
-    FONT-SIZE: 14PX;
+/* TABLE STYLES (Đảm bảo hài hòa với card trắng) */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 10px;
 }
 
-/* ================= ANIMATIONS ================= */
-@KEYFRAMES FADEIN {
-    FROM {
-        OPACITY: 0;
-        TRANSFORM: TRANSLATEY(25PX);
-    }
-
-    TO {
-        OPACITY: 1;
-        TRANSFORM: TRANSLATEY(0);
-    }
+th {
+    background: #f1f5f9;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
 }
 
-@KEYFRAMES SHINE {
-    100% {
-        LEFT: 125%;
-    }
+td {
+    padding: 15px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.9rem;
+    color: var(--text-main);
 }
 
+tr:hover td {
+    background: #f8fafc;
+}
 
-
-/* ===== NAV TOP RIGHT ===== */
+/* MODAL & NAV */
 .top-nav {
     position: fixed;
     top: 20px;
-    right: 20px;
-    z-index: 999;
+    right: 30px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
 }
 
-    /* button riêng cho nav */
     .top-nav button {
-        width: auto;
-        padding: 10px 16px;
-        font-size: 14px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        background: rgba(255, 255, 255, 0.1);
         color: white;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
     }
 
-        /* hover */
         .top-nav button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            background: var(--primary);
         }
 
-        /* click nảy */
-        .top-nav button:active {
-            transform: scale(0.92) translateY(2px);
-        }
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+}
+
+.modal {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 400px;
+    color: var(--text-main);
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-update {
+    background: #10b981;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    grid-column: span 2;
+}
+
+.btn-delete-modal {
+    background: #ef4444;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.btn-cancel {
+    background: #64748b;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+}

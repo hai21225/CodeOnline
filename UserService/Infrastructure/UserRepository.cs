@@ -19,6 +19,14 @@ namespace UserService.Infrastructure
 
         public async Task<bool> AddUser(UserDTO user)
         {
+            var existingUser = await _dbcontext.user
+       .FirstOrDefaultAsync(u => u.Username == user.Username );
+
+            if (existingUser != null)
+            {
+                // Đã tồn tại
+                return false;
+            }
             var newUser = new User
             {
                 Username = user.Username,

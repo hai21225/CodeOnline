@@ -5,7 +5,7 @@
     --bg-dark: #0f2027;
     --bg-mid: #203a43;
     --bg-light: #2c5364;
-    --glass: rgba(255,255,255,0.08);
+    --glass: rgba(255, 255, 255, 0.08);
     --radius: 18px;
     --transition: all 0.3s ease;
 }
@@ -19,111 +19,7 @@ body {
     color: white;
 }
 
-/* ================= NAVBAR ================= */
-.top-nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 70px;
-    background: rgba(15, 32, 39, 0.85);
-    backdrop-filter: blur(15px);
-    display: flex;
-    justify-content: center; /* CENTER NAV */
-    align-items: center;
-    gap: 40px;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-    .top-nav a {
-        color: rgba(255,255,255,0.7);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        transition: var(--transition);
-    }
-
-        .top-nav a:hover {
-            color: var(--primary);
-            text-shadow: 0 0 10px var(--primary);
-        }
-
-/* ================= USER MENU ================= */
-.user-menu {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    z-index: 2000;
-}
-
-.user-btn {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: none;
-    background: var(--glass);
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-    .user-btn:hover {
-        background: var(--primary);
-        box-shadow: 0 0 12px var(--primary);
-    }
-
-/* Dropdown */
-.dropdown {
-    position: absolute;
-    right: 0;
-    top: 55px;
-    width: 180px;
-    background: rgba(20,30,48,0.98);
-    backdrop-filter: blur(15px);
-    border-radius: 12px;
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-}
-
-    .dropdown a {
-        padding: 12px 18px;
-        text-decoration: none;
-        color: rgba(255,255,255,0.8);
-        font-size: 14px;
-        transition: 0.2s;
-    }
-
-        .dropdown a:hover {
-            background: var(--primary);
-            padding-left: 25px;
-        }
-
-/* ================= NOTIFICATION ================= */
-#bellContainer {
-    position: fixed;
-    top: 18px;
-    right: 80px;
-    cursor: pointer;
-}
-
-#bell {
-    font-size: 20px;
-}
-
-.badge {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background: red;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 50%;
-}
-
-/* ================= MAIN ================= */
+/* ================= SECTION ================= */
 section {
     padding: 120px 8% 60px;
 }
@@ -133,48 +29,8 @@ h2 {
     font-size: 28px;
     font-weight: 800;
     margin-bottom: 25px;
-    position: relative;
-    /* ✨ LÀM CHỮ NỔI */
-    color: white;
-    text-shadow: 0 0 10px rgba(0,198,255,0.6), 0 0 20px rgba(0,198,255,0.4);
+    text-shadow: 0 0 10px rgba(0,198,255,0.5);
 }
-
-    /* Thanh highlight */
-    h2::before {
-        content: "";
-        position: absolute;
-        left: -15px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 6px;
-        height: 80%;
-        background: linear-gradient(var(--primary), var(--primary-dark));
-        border-radius: 10px;
-    }
-
-/* ================= CONTAINER ================= */
-.assignment-container,
-.submission-container {
-    margin-top: 20px;
-}
-
-/* ================= CARD ================= */
-.assignment-card,
-.submission-card {
-    background: var(--glass);
-    backdrop-filter: blur(12px);
-    border-radius: var(--radius);
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: var(--transition);
-}
-
-    .assignment-card:hover,
-    .submission-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    }
 
 /* ================= GRID ================= */
 .assignment-container,
@@ -184,49 +40,33 @@ h2 {
     gap: 25px;
 }
 
-/* ================= MODAL ================= */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 3000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(5px);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background: white;
-    color: #333;
-    padding: 30px;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 550px;
-    position: relative;
-    animation: fadeIn 0.3s ease;
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
+/* ================= CARD ================= */
+.assignment-card,
+.submission-card {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: var(--transition);
     cursor: pointer;
-    font-weight: bold;
 }
+
+    .assignment-card:hover,
+    .submission-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
 
 /* ================= BUTTON ================= */
 button {
-    cursor: pointer;
     border: none;
-    border-radius: 8px;
-    padding: 10px 16px;
+    border-radius: 12px;
+    padding: 12px;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
     font-weight: 600;
+    cursor: pointer;
     transition: var(--transition);
 }
 
@@ -234,6 +74,172 @@ button {
         transform: scale(1.05);
         box-shadow: 0 5px 15px rgba(0,198,255,0.5);
     }
+
+/* ================= NOTIFICATION BELL ================= */
+#bellContainer {
+    position: fixed;
+    top: 18px;
+    right: 80px;
+    ``` width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 2000;
+    ```
+}
+
+    #bellContainer:hover {
+        background: var(--primary);
+        box-shadow: 0 0 12px var(--primary);
+    }
+
+#bell {
+    font-size: 20px;
+    line-height: 1;
+}
+
+/* badge */
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    ``` background: red;
+    color: white;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    ```
+}
+
+/* ================= MODAL ================= */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    ``` background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    ```
+}
+
+/* ================= MODAL CONTENT ================= */
+.modal-content {
+    position: relative;
+    ``` width: 90%;
+    max-width: 750px;
+    max-height: 85vh;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(20, 30, 48, 0.98);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+    animation: fadeIn 0.25s ease;
+    ```
+}
+
+    /* ================= TITLE MODAL ================= */
+    .modal-content h3 {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+/* ================= CLOSE BUTTON ================= */
+.close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    ``` width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+    ```
+}
+
+    .close:hover {
+        background: #ff4d4d;
+        transform: rotate(90deg);
+    }
+
+/* ================= SCROLL ================= */
+.result-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
+    .result-list::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .result-list::-webkit-scrollbar-thumb {
+        background: var(--primary);
+        border-radius: 10px;
+    }
+
+/* ================= RESULT ITEM ================= */
+.result-item {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--primary);
+    transition: var(--transition);
+}
+
+    .result-item:hover {
+        background: rgba(255,255,255,0.08);
+        transform: translateX(5px);
+    }
+
+    .result-item p {
+        margin: 6px 0;
+        font-size: 14px;
+    }
+
+/* ================= STATUS ================= */
+.status-pass {
+    color: #00ffcc;
+    font-weight: bold;
+}
+
+    .status-pass::before {
+        content: "✔ ";
+    }
+
+.status-fail {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+    .status-fail::before {
+        content: "✖ ";
+    }
+
+/* ================= CODE BLOCK ================= */
+pre {
+    background: rgba(0,0,0,0.6);
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 13px;
+    color: #00ffcc;
+}
 
 /* ================= ANIMATION ================= */
 @keyframes fadeIn {

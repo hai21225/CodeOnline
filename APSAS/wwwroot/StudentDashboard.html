@@ -1,15 +1,21 @@
 ﻿<!DOCTYPE html>
+
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="Css/StudentAssignment.css">
-    <link rel="stylesheet" href="Css/Dashboard.css" />
-    <link rel="stylesheet" href="Css/Notification.css" />
+    <link rel="stylesheet" href="Css/Dashboard.css">
+    <link rel="stylesheet" href="Css/Notification.css">
+   
+
 </head>
 <body>
 
-    <!-- 🔹 Góc phải: Nút ba chấm dropdown -->
+    <!-- ================= USER MENU ================= -->
+
     <div class="user-menu">
         <button class="user-btn" id="userBtn">⋮</button>
         <div class="dropdown" id="userDropdown">
@@ -19,15 +25,13 @@
         </div>
     </div>
 
-
-
-    <!-- 🔹 Thanh điều hướng -->
-    
+    <!-- ================= NOTIFICATION ================= -->
 
     <div id="bellContainer">
-        <span id="bell">🔔</span>
+        <i class="fa-solid fa-bell" id="bell"></i>
         <span id="badge" class="badge">0</span>
 
+        
         <div id="notificationsPopup" class="popup">
             <div class="popup-header">
                 <h4>Thông báo</h4>
@@ -38,97 +42,122 @@
             </div>
 
             <div class="popup-footer">
-                <button id="markAllBtn">🟩 Đã xem tất cả</button>
+                <button id="markAllBtn">Đã xem tất cả</button>
             </div>
-
-            <audio id="notifSound"
-                   src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"
-                   preload="auto"></audio>
         </div>
+        
+
     </div>
 
+    <!-- ================= ASSIGNMENTS ================= -->
 
-
-    <!--enter voo trong nay để thêm-->
-    <!------------------đó thêm trong đoạn này----------------------------------------->
-    <!--phan nay là cho bài tập ae né ra, có thêm gì thì thêm ở trên : hải-->
     <section id="assignments">
         <h2>Bài tập</h2>
         <div class="assignment-container" id="assignmentContainer"></div>
     </section>
 
-    <!-- Popup chi tiết của bài tập : hải-->
+    <!-- ================= ASSIGNMENT MODAL ================= -->
+
     <div id="assignmentModal" class="modal">
         <div class="modal-content">
+
+            
+            <span id="closeModalBtn" class="close">×</span>
+
             <h3 id="modalTitle"></h3>
 
-            <div class="modal-info">
-                <p><strong>Mô tả:</strong> <span id="modalDescription"></span></p>
+            <p><strong>Mô tả:</strong> <span id="modalDescription"></span></p>
 
-                <p><strong>Testcase mẫu:</strong></p>
-                <pre id="modalSampleTestcase" class="sample-box"></pre>
+            <p><strong>Testcase mẫu:</strong></p>
+            <pre id="modalSampleTestcase"></pre>
 
-                <p><strong>Độ khó:</strong> <span id="modalDifficult"></span></p>
-                <p><strong>Hạn nộp:</strong> <span id="modalDeadline"></span></p>
-            </div>
+            <p><strong>Độ khó:</strong> <span id="modalDifficult"></span></p>
+            <p><strong>Hạn nộp:</strong> <span id="modalDeadline"></span></p>
 
             <div class="modal-buttons">
                 <button id="viewResourceBtn">Xem hướng dẫn</button>
                 <button id="doAssignmentBtn">Làm bài</button>
             </div>
 
-            <button id="closeModalBtn" class="close">X</button>
         </div>
+        
+
     </div>
 
-    <!-- Popup xem Resource của học sinh -->
+    <!-- ================= RESOURCE MODAL ================= -->
+
     <div id="studentResourceModal" class="modal">
         <div class="modal-content">
-            <button id="closeStudentResourceBtn" class="close">X</button>
-            <h3>Hướng dẫn làm bài: </h3>
+
+            ```
+            <span id="closeStudentResourceBtn" class="close">×</span>
+
+            <h3>Hướng dẫn làm bài</h3>
+
+            <div class="result-list" id="resourceList"></div>
+
         </div>
+        ```
+
     </div>
 
+    <!-- ================= SUBMISSIONS ================= -->
 
-    <!-- 🔹 Danh sách bài nộp của sinh viên -->
     <section id="submissions">
         <h2>Bài nộp của tôi</h2>
-        <div class="submission-container" id="submissionContainer">
-            <p>Đang tải danh sách bài nộp...</p>
-        </div>
+        <div class="submission-container" id="submissionContainer"></div>
     </section>
 
+    <!-- ================= SUBMISSION DETAIL ================= -->
 
-    <!-- 🔹 Popup thông tin bài nộp -->
     <div id="submissionModal" class="modal">
         <div class="modal-content">
-            <button id="closeSubmissionModalBtn" class="close">X</button>
-            <div class="modal-content">
-                <h3>Thông tin bài nộp</h3>
-                <p><strong>Ngôn ngữ:</strong> <span id="modalLanguage"></span></p>
-                <p><strong>Code:</strong></p>
-                <pre id="modalCode" class="code-block"></pre>
-                <p><strong>Điểm:</strong> <span id="modalScore"></span></p>
-                <p><strong>Trạng thái:</strong> <span id="modalStatus"></span></p>
-                <p><strong>Ngày nộp:</strong> <span id="modalSubmittedAt"></span></p>
-            </div>
+
+            ```
+            <span id="closeSubmissionModalBtn" class="close">×</span>
+
+            <h3>Thông tin bài nộp</h3>
+
+            <p><strong>Ngôn ngữ:</strong> <span id="modalLanguage"></span></p>
+
+            <p><strong>Code:</strong></p>
+            <pre id="modalCode"></pre>
+
+            <p><strong>Điểm:</strong> <span id="modalScore"></span></p>
+            <p><strong>Trạng thái:</strong> <span id="modalStatus"></span></p>
+            <p><strong>Ngày nộp:</strong> <span id="modalSubmittedAt"></span></p>
+
             <button id="viewResultBtn">Xem kết quả chi tiết</button>
+
         </div>
+        ```
+
     </div>
 
+    <!-- ================= RESULT MODAL ================= -->
 
-    <!-- 🔹 Popup chi tiết bài nộp -->
     <div id="submissionResultModal" class="modal">
         <div class="modal-content">
-            <button id="closeResultModalBtn" class="close">X</button>
+
+            ```
+            <span id="closeResultModalBtn" class="close">×</span>
+
             <h3>Kết quả chi tiết bài nộp</h3>
-            <div id="resultList"></div>
+
+            <!-- 👇 SCROLL CHÍNH -->
+            <div class="result-list" id="resultList"></div>
+
         </div>
+        ```
+
     </div>
 
+    <!-- ================= SCRIPT ================= -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+
     <script src="Js/StudentAssignment.js"></script>
+
     <script src="Js/Notification.js"></script>
 
 </body>

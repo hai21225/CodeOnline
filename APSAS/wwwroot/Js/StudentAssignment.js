@@ -55,7 +55,7 @@ function openModal(assignment) {
     document.getElementById("modalDeadline").innerText = assignment.deadline;
     document.getElementById("doAssignmentBtn").style.display = "inline-block";
     const modal = document.getElementById("assignmentModal");
-    modal.style.display = "block";
+    modal.style.display = "flex";
     // Đóng popup bài tập
     document.getElementById("closeModalBtn").onclick = () => {
         document.getElementById("assignmentModal").style.display = "none";
@@ -206,7 +206,7 @@ async function loadSubmissionResult(submissionId) {
             container.appendChild(card);
         });
 
-        document.getElementById("submissionResultModal").style.display = "block";
+        document.getElementById("submissionResultModal").style.display = "flex";
 
     } catch (err) {
         container.innerHTML = "<p>Lỗi khi tải kết quả.</p>";
