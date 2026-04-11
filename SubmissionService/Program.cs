@@ -101,26 +101,26 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//    db.Database.Migrate(); // tự động tạo DB và apply migration khi app chạy
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate(); // tự động tạo DB và apply migration khi app chạy
 
 
-//    if (!db.Languages.Any())
-//    {
-//        db.Languages.AddRange(
-//            new Language { LanguageId = 71, LanguageName = "Python" },
-//            new Language { LanguageId = 54, LanguageName = "C++" },
-//            new Language { LanguageId = 73, LanguageName = "Rust" },
-//            new Language { LanguageId = 62, LanguageName = "Java" },
-//            new Language { LanguageId = 51, LanguageName = "C#" },
-//            new Language { LanguageId = 50, LanguageName = "C" }
-//        );
-//        db.SaveChanges();
-//    }
+    if (!db.Languages.Any())
+    {
+        db.Languages.AddRange(
+            new Language { LanguageId = 71, LanguageName = "Python" },
+            new Language { LanguageId = 54, LanguageName = "C++" },
+            new Language { LanguageId = 73, LanguageName = "Rust" },
+            new Language { LanguageId = 62, LanguageName = "Java" },
+            new Language { LanguageId = 51, LanguageName = "C#" },
+            new Language { LanguageId = 50, LanguageName = "C" }
+        );
+        db.SaveChanges();
+    }
 
-//}
+}
 
 
 app.Run();
