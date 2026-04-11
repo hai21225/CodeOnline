@@ -75,6 +75,13 @@ namespace UserService.Infrastructure
 
         public async Task<bool> UpdateUser(UserDTO user)
         {
+            var checkUser = await _dbcontext.user
+                .AnyAsync(u => u.Username == user.Username && u.UserID != user.UserID);
+
+            if (checkUser)
+            {
+                return false; // username đã bị người khác dùng
+            }
             var existingUser = await _dbcontext.user.FindAsync(user.UserID);
             if (existingUser == null)
                 return false;

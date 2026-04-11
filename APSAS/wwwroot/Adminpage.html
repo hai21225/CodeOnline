@@ -1,90 +1,77 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Admin - Quản lý User</title>
+    <title>Trang Quản Trị (Admin)</title>
     <link rel="stylesheet" href="Css/Admin.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.min.js"></script>
+
 </head>
 <body>
-
-    <div class="top-nav">
-        <button onclick="window.location.href='StudentDashboard.html'">Sinh Viên</button>
-        <button onclick="window.location.href='DashboardLecturer.html'">Giảng Viên</button>
+    <div class="top-right-nav">
+        <button onclick="window.location.href='StudentDashboard.html'">Trang Sinh Viên</button>
+        <button onclick="window.location.href='DashboardLecturer.html'">Trang Giảng Viên</button>
         <button onclick="logout()" class="btn-logout">Đăng xuất</button>
     </div>
-
     <h1>Trang Quản Trị</h1>
 
-    <div class="main-layout-horizontal">
 
-        <div class="card form-container">
-            <h2 class="bounce-text">Thêm Người Dùng</h2>
-
-            <div class="input-group">
-                <label>Username</label>
-                <input id="username" type="text" placeholder="Nhập tên đăng nhập..." />
-
-                <label>Email</label>
-                <input id="email" type="email" placeholder="example@ut.edu.vn" />
-
-                <label>Full Name</label>
-                <input id="fullname" type="text" placeholder="Họ và tên..." />
-
-                <label>Password</label>
-                <input id="password" type="password" placeholder="••••••••" />
-
-                <label>Role</label>
-                <select id="roleid">
-                    <option value="1">Admin</option>
-                    <option value="2">Giảng viên</option>
-                    <option value="3">Sinh viên</option>
-                </select>
-
-                <button id="submitUserBtn">Thêm User</button>
-                <p id="userMessage" class="message"></p>
-            </div>
-        </div>
-
-        <div class="card table-container">
-            <h2 class="bounce-text">Danh Sách Người Dùng</h2>
-            <div id="userTableContainer">
-            </div>
-        </div>
-
+    <!-- ========== PHẦN USER ========== -->
+    <div class="container-user">
+        <h2>Thêm Người Dùng</h2>
+        <label for="username">Username</label>
+        <input id="username" type="text" />
+        <label for="email">Email</label>
+        <input id="email" type="email" />
+        <label for="fullname">Full Name</label>
+        <input id="fullname" type="text" />
+        <label for="password">Password</label>
+        <input id="password" type="password" />
+        <label for="roleid">Role</label>
+        <select id="roleid">
+            <option value="1">1 - Admin</option>
+            <option value="2">2 - Giảng viên</option>
+            <option value="3">3 - Sinh viên</option>
+        </select>
+        <button id="submitUserBtn">Thêm User</button>
+        <p id="userMessage" class="message"></p>
     </div>
 
-    <div id="editOverlay" class="modal-overlay" style="display:none;">
-        <div class="modal">
-            <h3 class="bounce-text">✏️ Sửa Người Dùng</h3>
-            <input type="hidden" id="editUserId" />
+    <h2>Danh Sách Người Dùng</h2>
+    <div id="userTableContainer"></div>
 
+    <!-- Edit User Modal -->
+    <div id="editOverlay" class="modal-overlay">
+        <div class="modal">
+            <h3>✏️ Sửa Người Dùng</h3>
+            <input type="hidden" id="editUserId" />
             <label>Username</label>
             <input id="editUsername" type="text" />
-
             <label>Email</label>
             <input id="editEmail" type="email" />
-
             <label>Full Name</label>
             <input id="editFullname" type="text" />
-
-            <label>Password mới</label>
+            <label>Password mới (để trống nếu không đổi)</label>
             <input id="editPassword" type="password" />
-
             <label>Role</label>
             <select id="editRole">
-                <option value="1">Admin</option>
-                <option value="2">Giảng viên</option>
-                <option value="3">Sinh viên</option>
+                <option value="1">1 - Admin</option>
+                <option value="2">2 - Giảng viên</option>
+                <option value="3">3 - Sinh viên</option>
             </select>
-
             <div class="actions">
-                <button class="btn-update" onclick="confirmUpdateUser()">Cập nhật</button>
-                <button class="btn-delete-modal" onclick="confirmDeleteFromModal()">Xóa</button>
-                <button class="btn-cancel" onclick="closeEditModal()">Hủy</button>
+                <button class="small" style="background-color:#27ae60;" onclick="confirmUpdateUser()">Cập nhật</button>
+                <button class="small" style="background-color:#c0392b;" onclick="confirmDeleteFromModal()">Xóa</button>
+                <button class="small" style="background-color:#7f8c8d;" onclick="closeEditModal()">Hủy</button>
             </div>
             <p id="editMessage" class="message"></p>
         </div>
     </div>
+
+
+
 
     <script src="Js/Admin.js"></script>
 </body>

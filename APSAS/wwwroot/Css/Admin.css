@@ -13,8 +13,8 @@ body {
     margin: 0;
     padding-bottom: 50px;
     font-family: 'Inter', 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at top right, #1e293b, #0f172a);
-    color: white;
+    background: radial-gradient();
+    color: black;
     min-height: 100vh;
 }
 
@@ -28,54 +28,40 @@ h1 {
     -webkit-text-fill-color: transparent;
 }
 
-/* LAYOUT SONG SONG */
-.main-layout-horizontal {
+/* NAV (đã sửa đúng class) */
+.top-right-nav {
+    position: fixed;
+    top: 20px;
+    right: 30px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 30px;
-    padding: 0 40px;
-    max-width: 1500px;
-    margin: 0 auto;
+    gap: 10px;
+    z-index: 1000;
 }
 
-/* CARD CHUNG */
-.card {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 30px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
-    color: var(--text-main);
-}
-
-.form-container {
-    flex: 1;
-    max-width: 420px;
-}
-
-.table-container {
-    flex: 2.5;
-    min-width: 600px;
-}
-
-/* HIỆU ỨNG NẨY CHỈ KHI RÊ VÀO CHỮ */
-.bounce-text {
-    display: block;
-    text-align: center;
-    color: var(--primary);
-    margin-bottom: 25px;
-    font-size: 1.5rem;
-    cursor: default;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-    .bounce-text:hover {
-        transform: translateY(-8px) scale(1.05);
-        color: var(--primary-hover);
+    .top-right-nav button {
+        background: rgba(255, 255, 255, 0.1);
+        color: blue;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(5px);
     }
 
-/* FORM ELEMENTS */
+        .top-right-nav button:hover {
+            background: radial-gradient();
+        }
+
+/* FORM USER */
+.container-user {
+    max-width: 500px;
+    margin: 0 auto 40px;
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: var(--radius);
+    color: var(--text-main);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
 label {
     display: block;
     margin: 15px 0 5px;
@@ -101,7 +87,7 @@ input, select {
         box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
     }
 
-/* BUTTONS */
+/* BUTTON */
 button {
     cursor: pointer;
     border: none;
@@ -128,12 +114,20 @@ button {
         transform: scale(0.97);
     }
 
-/* TABLE STYLES (Đảm bảo hài hòa với card trắng) */
+/* TABLE */
+#userTableContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: var(--radius);
+    padding: 20px;
+    color: var(--text-main); /* ✅ FIX */
+}
+
 table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    margin-top: 10px;
 }
 
 th {
@@ -141,7 +135,6 @@ th {
     color: var(--text-muted);
     font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
@@ -151,35 +144,40 @@ td {
     padding: 15px;
     border-bottom: 1px solid #f1f5f9;
     font-size: 0.9rem;
-    color: var(--text-main);
 }
 
 tr:hover td {
     background: #f8fafc;
 }
 
-/* MODAL & NAV */
-.top-nav {
-    position: fixed;
-    top: 20px;
-    right: 30px;
-    display: flex;
-    gap: 10px;
-    z-index: 1000;
+/* ACTION BUTTONS */
+.btn-edit {
+    background: #3b82f6;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    margin-right: 5px;
 }
 
-    .top-nav button {
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 8px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(5px);
-    }
+.btn-delete {
+    background: #ef4444;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
 
-        .top-nav button:hover {
-            background: var(--primary);
-        }
+.btn-edit:hover {
+    background: #2563eb;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+}
+
+/* ===== MODAL (FIX CHÍNH) ===== */
+#editOverlay {
+    display: none; /* 🔥 QUAN TRỌNG: Ẩn mặc định */
+}
 
 .modal-overlay {
     position: fixed;
@@ -198,33 +196,46 @@ tr:hover td {
     border-radius: 20px;
     width: 400px;
     color: var(--text-main);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    animation: fadeIn 0.2s ease;
 }
 
-.actions {
+@keyframes fadeIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* BUTTON TRONG MODAL */
+.modal .actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin-top: 20px;
 }
 
-.btn-update {
-    background: #10b981;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    grid-column: span 2;
+    .modal .actions button {
+        padding: 10px;
+        border-radius: 8px;
+        color: white;
+    }
+
+/* MESSAGE */
+.message {
+    margin-top: 10px;
+    font-size: 0.9rem;
 }
 
-.btn-delete-modal {
-    background: #ef4444;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-}
+    .message.success {
+        color: #16a34a;
+    }
 
-.btn-cancel {
-    background: #64748b;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-}
+    .message.error {
+        color: #dc2626;
+    }

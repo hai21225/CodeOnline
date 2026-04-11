@@ -20,11 +20,6 @@ window.onload = () => {
     }, 1000);
 
     checkAccess();
-
-    // Kiểm tra nếu có bảng mới load (Tránh lỗi null trên các trang không có bảng)
-    if (document.getElementById("studentTable")) {
-        loadStudents();
-    }
 };
 
 // ======== ACCESS CONTROL (Giữ nguyên) ========
@@ -38,44 +33,6 @@ function checkAccess() {
     }
 }
 
-// ======== LOAD STUDENTS (Giữ nguyên logic render) ========
-const apiUrl = "http://localhost:5261/GetAllStudents";
-let studentsData = [];
-
-async function loadStudents() {
-    const token = localStorage.getItem("token");
-
-    try {
-        const res = await fetch(apiUrl, {
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-
-        if (!res.ok) throw new Error("Không thể tải dữ liệu sinh viên!");
-
-        const data = await res.json();
-        studentsData = data;
-
-        const tbody = document.querySelector("#studentTable tbody");
-
-        // SỬA LỖI: Kiểm tra tbody tồn tại trước khi set innerHTML
-        if (!tbody) return;
-
-        tbody.innerHTML = data.map(s =>
-            `<tr id="row-${s.userID}">
-                <td>${s.username}</td>
-                <td>${s.fullName}</td>
-                <td>
-                    <button class="btn-view-task" onclick="openFeedback(${s.userID})">
-                        Xem bài tập
-                    </button>
-                </td>
-            </tr>`
-        ).join("");
-
-    } catch (err) {
-        console.error(err.message);
-    }
-}
 
 // ======== MỞ TRANG FEEDBACK (Giữ nguyên) ========
 function openFeedback(studentId) {
