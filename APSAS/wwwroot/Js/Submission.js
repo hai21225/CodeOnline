@@ -1,4 +1,5 @@
 ﻿const gatewayUrl = "http://localhost:5261"; // API Gateway URL
+const gatewayUrl = "http://52.184.80.181:5261";
 let selectedLanguageId = 71; // mặc định Python
 let testcaseExample = " ";
 const token = localStorage.getItem("token");

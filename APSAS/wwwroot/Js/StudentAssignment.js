@@ -1,5 +1,6 @@
 ﻿// -------------------- CONFIG --------------------
-const baseUrl = "http://localhost:5261";
+//const baseUrl = "http://localhost:5261";
+const baseUrl = "http://52.184.80.181:5261";
 let selectedAssignmentId = null;
 const token = localStorage.getItem("token");
 

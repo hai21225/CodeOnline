@@ -1,4 +1,5 @@
-﻿const gatewayUrl = "http://localhost:5261";
+﻿//const gatewayUrl = "http://localhost:5261";
+const gatewayUrl = "http://52.184.80.181:5261";
 const changePwdEndpoint = "/ChangePassword";
 const token = localStorage.getItem("token");
 const username = localStorage.getItem("username");

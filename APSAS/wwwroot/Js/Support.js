@@ -1,4 +1,5 @@
-﻿const apiUrl = "http://localhost:5261/SendMessageToAdmin";
+﻿//const apiUrl = "http://localhost:5261/SendMessageToAdmin";
+const apiUrl = "http://52.184.80.181:5261/SendMessageToAdmin";
 const input = document.getElementById("messageInput");
 const chatBox = document.getElementById("chatMessages");
 const sendBtn = document.getElementById("sendBtn");

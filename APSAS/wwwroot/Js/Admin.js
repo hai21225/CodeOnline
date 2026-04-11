@@ -1,4 +1,5 @@
-﻿const GATEWAY_URL = "http://localhost:5261";
+﻿//const GATEWAY_URL = "http://localhost:5261";
+const GATEWAY_URL = "http://52.184.80.181:5261";
 const token = localStorage.getItem("token");
 const role = localStorage.getItem("role");
 window._usersMap = {};
